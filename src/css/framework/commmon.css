@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+    color: #333333;
+    font-family: 'PingFangSC', 'Microsoft YaHei', 'Arial', sans-serif;
+}
+
+ul {
+    list-style: none;
+}
+
+li > a {
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+textarea {
+    font-family: inherit;
+    resize: none;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.break-all {
+    word-break: break-all;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.none {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex1 {
+    flex: 1;
+}
+
+.red {
+    color: red;
+}
