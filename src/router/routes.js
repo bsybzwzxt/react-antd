@@ -3,16 +3,14 @@ import React from 'react'
 // import {Router, Route, Link} from 'react-router'
 
 import MainLayout from 'src/router/main';
-import Demo1 from 'src/jsx/demo/Demo1';
-import Demo2 from 'src/jsx/demo/Demo2';
-import Demo3 from 'src/jsx/demo/Demo3';
-import Login from 'src/jsx/Login';
-
-// console.log(MainLayout);
+import Demo1 from 'src/page/demo/Demo1';
+import Demo2 from 'src/page/demo/Demo2';
+import Demo3 from 'src/page/demo/Demo3';
+import Login from 'src/page/Login';
 
 const routes = [
     {
-        // path: '/main',
+        path: '/main',
         component: MainLayout,
         routes: [
             {path: '/main/demo3', component: Demo3},

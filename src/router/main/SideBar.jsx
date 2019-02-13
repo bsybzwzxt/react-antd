@@ -4,8 +4,7 @@ import {Menu, Icon, Button} from 'antd';
 
 const SubMenu = Menu.SubMenu;
 
-class SideBar extends React.Component {
-
+export default class SideBar extends React.Component {
     render() {
         return (
             <div style={{width: 240}}>
@@ -68,6 +67,3 @@ class SideBar extends React.Component {
     // };
 
 }
-
-
-export default SideBar

@@ -1,16 +1,8 @@
 import React from 'react'
-import Demo1 from 'src/jsx/demo/Demo1'
+import Demo1 from 'src/page/demo/Demo1'
 import routes from "./router/routes";
 import {renderRoutes} from "react-router-config";
 import {HashRouter, Switch, Route, Link} from 'react-router-dom'
-
-// export default () => (
-//     <HashRouter>
-//         <Switch>
-//             {renderRoutes(router)}
-//         </Switch>
-//     </HashRouter>
-// );
 
 export default class App extends React.Component {
     render() {
@@ -28,6 +20,7 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         console.log('props', props);
+        // props.a = 1;
         this.state = {date: new Date()};
     }
 
