@@ -3,8 +3,42 @@ import Parallax from 'parallax-js'
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
 
 class Login extends React.Component {
+
+    constructor(props) {
+        super(props);
+        console.log(props);
+    }
+
+    componentDidMount() {
+        let illus = document.getElementById('illus');
+        new Parallax(illus, {
+            relativeInput: false,
+            clipRelativeInput: true,
+            calibrateX: true,
+            calibrateY: true,
+            invertX: true,
+            invertY: true,
+            limitX: 500,
+            limitY: 300,
+            scalarX: 8,
+            scalarY: 8,
+            frictionX: 0.2,
+            frictionY: 0.8
+        });
+    }
+
+    handleSubmit() {
+        event.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            this.props.history.push('/main/demo3')
+            if (!err) {
+                console.log('Received values of form: ', values);
+            }
+        });
+    }
+
     render() {
-        // const {getFieldDecorator} = this.props.form;
+        const {getFieldDecorator} = this.props.form;
 
         return (
             <div className="login">
@@ -53,49 +87,16 @@ class Login extends React.Component {
                             <Button type="primary" htmlType="submit" className="login-form-button">
                                 Log in
                             </Button>
-                            Or <a href="">register now!</a>
-                            <p></p>
+                            Or
+                            <a href="">register now!</a>
                         </Form.Item>
                     </Form>
                 </div>
             </div>
         )
     }
-
-    constructor(props) {
-        super(props);
-        console.log(props);
-    }
-
-    componentDidMount() {
-        let illus = document.getElementById('illus');
-        new Parallax(illus, {
-            relativeInput: false,
-            clipRelativeInput: true,
-            calibrateX: true,
-            calibrateY: true,
-            invertX: true,
-            invertY: true,
-            limitX: 500,
-            limitY: 300,
-            scalarX: 8,
-            scalarY: 8,
-            frictionX: 0.2,
-            frictionY: 0.8
-        });
-    }
-
-    handleSubmit() {
-        event.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
-    }
-
 }
 
-// Login = Form.create()(Login);
+Login = Form.create()(Login);
 
 export default Login

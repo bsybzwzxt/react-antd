@@ -1,0 +1,23 @@
+.page {
+    position: absolute;
+    top: 56px;
+    left: 240px;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background-color: aqua;
+}
+
+.page-content {
+    position: relative;
+    height: 100%;
+    overflow: auto;
+}
+
+.transition-all-3 {
+    transition: all 0.3s;
+}
+
+.collapsed .page {
+    left: 80px;
+}

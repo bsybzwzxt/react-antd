@@ -95,13 +95,13 @@ if (process.env.NODE_ENV === 'development') {
         module: {
             rules: [{
                 // eslint
-                test: /\.(js|jsx)$/,
-                include: [
-                    path.join(__dirname, 'src')
-                ],
-                enforce: 'pre',
-                loader: 'eslint-loader'
-            }, {
+            //     test: /\.(js|jsx)$/,
+            //     include: [
+            //         path.join(__dirname, 'src')
+            //     ],
+            //     enforce: 'pre',
+            //     loader: 'eslint-loader'
+            // }, {
                 // 开发环境启用热加载,不能抽离css
                 test: /\.css$/,
                 use: ['style-loader', {

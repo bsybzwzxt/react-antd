@@ -19,7 +19,7 @@ export default class App extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log('props', props);
+        // console.log('props', props);
         // props.a = 1;
         this.state = {date: new Date()};
     }

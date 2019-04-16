@@ -2,10 +2,10 @@ import React from 'react'
 // import {render} from 'react-dom'
 // import {Router, Route, Link} from 'react-router'
 
-import MainLayout from 'src/router/main';
-import Demo1 from 'src/page/demo/Demo1';
-import Demo2 from 'src/page/demo/Demo2';
-import Demo3 from 'src/page/demo/Demo3';
+import MainLayout from 'src/router/main/';
+import Demo1 from 'src/page/demo/demo1/';
+import Demo2 from 'src/page/demo/demo2/';
+import Demo3 from 'src/page/demo/demo3/';
 import Login from 'src/page/Login';
 
 const routes = [
