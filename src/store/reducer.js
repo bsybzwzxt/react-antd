@@ -1,46 +1,30 @@
-import { combineReducers } from 'redux'
-import {
-    ADD_TODO,
-    TOGGLE_TODO,
-    SET_VISIBILITY_FILTER,
-    VisibilityFilters
-} from './action'
-const { SHOW_ALL } = VisibilityFilters
-
-function visibilityFilter(state = SHOW_ALL, action) {
-    switch (action.type) {
-        case SET_VISIBILITY_FILTER:
-            return action.filter
-        default:
-            return state
-    }
-}
-
-function todos(state = [], action) {
-    switch (action.type) {
-        case ADD_TODO:
-            return [
-                ...state,
-                {
-                    text: action.text,
-                    completed: false
-                }
-            ]
-        case TOGGLE_TODO:
-            return state.map((todo, index) => {
-                if (index === action.index) {
-                    return Object.assign({}, todo, {
-                        completed: !todo.completed
-                    })
-                }
-                return todo
-            })
-        default:
-            return state
-    }
-}
+import { fromJS } from 'immutable';
+import { combineReducers } from "redux-immutable";
+import { testActions, testState } from './actions/test';
+import { systemActions, systemState } from './actions/system';
 
 export default combineReducers({
-    visibilityFilter,
-    todos
+    test: createReducer(fromJS(testState), transAction(testActions)),
+    system: createReducer(fromJS(systemState), transAction(systemActions))
 });
+
+
+function createReducer(initialState, handlers) {
+    return function reducer(state = initialState, action) {
+        if (handlers.hasOwnProperty(action.type)) {
+            return handlers[action.type](state, action);
+        } else {
+            return state;
+        }
+    }
+}
+
+function transAction(actions) {
+    let result = {};
+    for (let action in actions) {
+        result[action] = function (state, { type, payload, key, method }) {
+            return method ? method(state) : state.set(key || type, payload);
+        }
+    }
+    return result;
+}

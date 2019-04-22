@@ -1,12 +1,17 @@
-export const SET_LOADING = 'SET_LOADING';
+export const systemActions = {
+    setLoading: function (data) {
+        return function (dispatch) {
+            return dispatch({ type: 'setLoading', key: 'loading', payload: data });
+        }
+    },
+    setCollapsed: function (data) {
+        return function (dispatch) {
+            return dispatch({ type: 'setCollapsed', key: 'collapsed', payload: data });
+        }
+    },
+};
 
-export function setLoading(state) {
-    return { type: SET_LOADING, preload: { loading: state } }
-}
-
-
-export const SET_COLLAPSED = 'SET_COLLAPSED';
-
-export function setCollapsed(state) {
-    return { type: SET_COLLAPSED, preload: { collapsed: state } }
-}
+export const systemState = {
+    collapsed: false,
+    loading: false
+};

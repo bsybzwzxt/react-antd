@@ -13,7 +13,7 @@ let options = require(path.join(__dirname, 'webpack.options.js'));
 let webpackConfig = {
     mode: process.env.NODE_ENV,
     entry: {
-        app: ['babel-polyfill', path.join(__dirname, 'src/main.js')]
+        app: [path.join(__dirname, 'src/main.js')]
     },
     resolve: {
         extensions: ['.js', '.jsx'],
@@ -30,15 +30,15 @@ let webpackConfig = {
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: ['env', 'react'],
+                    presets: ['@babel/preset-env', '@babel/preset-react'],
                     plugins: [
-                        'transform-runtime',
-                        'transform-object-rest-spread',
+                        ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+                        ['@babel/plugin-proposal-class-properties', { 'loose': true }],
                         ['import', {
                             'libraryName': 'antd',
                             'libraryDirectory': 'es',
                             // `style: true` 会加载 less 文件
-                            'style': 'css'
+                            'style': 'true'
                         }]
                     ]
                 }
@@ -95,17 +95,17 @@ if (process.env.NODE_ENV === 'development') {
         module: {
             rules: [{
                 // eslint
-            //     test: /\.(js|jsx)$/,
-            //     include: [
-            //         path.join(__dirname, 'src')
-            //     ],
-            //     enforce: 'pre',
-            //     loader: 'eslint-loader'
-            // }, {
+                //     test: /\.(js|jsx)$/,
+                //     include: [
+                //         path.join(__dirname, 'src')
+                //     ],
+                //     enforce: 'pre',
+                //     loader: 'eslint-loader'
+                // }, {
                 // 开发环境启用热加载,不能抽离css
                 test: /\.css$/,
                 use: ['style-loader', {
-                    loader: 'css-loader', options: {importLoaders: 1}
+                    loader: 'css-loader', options: { importLoaders: 1 }
                 }, {
                     loader: 'postcss-loader', options: {
                         plugins: [
@@ -166,7 +166,7 @@ if (process.env.NODE_ENV === 'production') {
             rules: [{
                 test: /\.css$/,
                 use: [MiniCssExtractPlugin.loader, {
-                    loader: 'css-loader', options: {importLoaders: 1}
+                    loader: 'css-loader', options: { importLoaders: 1 }
                 }, {
                     loader: 'postcss-loader', options: {
                         plugins: [

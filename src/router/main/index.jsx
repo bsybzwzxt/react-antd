@@ -1,14 +1,35 @@
 import React from 'react'
-import {renderRoutes} from "react-router-config";
+import { connect } from "react-redux";
+import { renderRoutes } from "react-router-config";
 import SideBar from "./sidebar";
 import TopBar from "./topbar";
+
 import './index.css'
-import { connect } from "react-redux";
 
 class MainLayout extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // console.log(prevProps, prevState, snapshot);
+    }
+
+    componentWillUnmount() {
+
+    }
+
     render() {
+        // console.log(this.props);
+        const { collapsed } = this.props;
+
         return (
-            <div className={this.props.system.collapsed ? 'collapsed' : ''}>
+            <div className={collapsed ? 'collapsed' : ''}>
                 <SideBar/>
                 <TopBar/>
                 <div className="page transition-all-3">
@@ -19,26 +40,12 @@ class MainLayout extends React.Component {
             </div>
         )
     }
-
-    constructor(props) {
-        super(props);
-        // console.log(props);
-        // console.log(this);
-        // this.state = {date: new Date()};
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log(prevProps, prevState, snapshot);
-    }
-
-    componentWillUnmount() {
-
-    }
 }
-const mapStateToProps = (state) => state;
+
+const mapStateToProps = (state) => ({
+    system: state.get('system'),
+    collapsed: state.getIn(['system', 'collapsed'])
+});
+
 
 export default connect(mapStateToProps)(MainLayout);

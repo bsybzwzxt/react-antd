@@ -13,11 +13,11 @@ const routes = [
         path: '/main',
         component: MainLayout,
         routes: [
-            {path: '/main/demo3', component: Demo3},
+            { path: '/main/demo3', component: Demo3 },
         ]
     },
-    {path: '/demo2', component: Demo2},
-    {path: '/', component: Login, exact: true},
+    { path: '/demo2', component: Demo2 },
+    { path: '/', component: Login, exact: true },
 ];
 
 // React.render(<Router routes={routes}/>, document.body);

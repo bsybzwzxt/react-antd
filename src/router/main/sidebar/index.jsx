@@ -1,20 +1,34 @@
 import React from 'react'
-
-import {Menu, Icon} from 'antd';
-
-import './index.css'
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Menu, Icon } from 'antd';
+import { systemActions } from "src/store/actions/system";
+import './index.css'
 
 const SubMenu = Menu.SubMenu;
 
-class SideBar extends React.Component {
+@connect((state) => ({
+        collapsed: state.getIn(['system', 'collapsed'])
+    }), (dispatch) => ({
+        actions: bindActionCreators(systemActions, dispatch)
+    })
+)
+
+export default class SideBar extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+        console.log(this.props);
+        const { collapsed } = this.props;
         return (
             <div className="sidebar transition-all-3">
                 <div className="title">
                     <h2>logo</h2>
                 </div>
-                <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline" theme="dark" inlineCollapsed={this.props.system.collapsed}>
+                <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline" theme="dark" inlineCollapsed={collapsed}>
                     <Menu.Item key="1">
                         <Icon type="pie-chart"/>
                         <span>Option 1</span>
@@ -45,15 +59,4 @@ class SideBar extends React.Component {
             </div>
         );
     }
-
-
-    constructor(props) {
-        super(props);
-        // console.log('props', props);
-        // this.toggleCollapsed = this.toggleCollapsed.bind(this);
-    }
-
 }
-const mapStateToProps = (state) => state;
-
-export default connect(mapStateToProps)(SideBar);

@@ -1,37 +1,35 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from "redux";
 import { Icon, Button } from 'antd';
-
+import { systemActions } from 'src/store/actions/system'
 import './index.css'
-import { setLoading, setCollapsed } from 'src/store/actions/system'
 
-class TopBar extends React.Component {
+@connect((state) => ({
+        collapsed: state.getIn(['system', 'collapsed'])
+    }), (dispatch) => ({
+        actions: bindActionCreators(systemActions, dispatch)
+    })
+)
+
+export default class TopBar extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+        const { collapsed } = this.props;
+
         return (
             <div className="topbar transition-all-3">
-                <Button type="primary" onClick={() => this.props.toggleCollapsed(this.props.system.collapsed)}>
-                    <Icon type={this.props.system.collapsed ? 'menu-unfold' : 'menu-fold'}/>
+                <Button type="primary" onClick={() => this.props.actions.setCollapsed(!collapsed)}>
+                    <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'}/>
                 </Button>
             </div>
         );
     }
 
-    constructor(props) {
-        super(props);
-        console.log(props);
-        // console.log('props', props);
-    }
-
 }
 
-const mapStateToProps = (state) => state;
-
-const mapDispatchToProps = dispatch => {
-    return {
-        toggleCollapsed: collapsed => {
-            dispatch(setCollapsed(!collapsed));
-        }
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TopBar);
+// export default connect(mapStateToProps, mapDispatchToProps)(TopBar);
