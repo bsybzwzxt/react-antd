@@ -3,10 +3,16 @@ import { connect } from "react-redux";
 import { renderRoutes } from "react-router-config";
 import SideBar from "./sidebar";
 import TopBar from "./topbar";
-
 import './index.css'
+import { Spin } from "antd";
 
-class MainLayout extends React.Component {
+@connect((state) => ({
+        collapsed: state.getIn(['system', 'collapsed']),
+        loading: state.getIn(['system', 'loading'])
+    })
+)
+
+export default class MainLayout extends React.Component {
 
     constructor(props) {
         super(props);
@@ -25,27 +31,20 @@ class MainLayout extends React.Component {
     }
 
     render() {
-        // console.log(this.props);
-        const { collapsed } = this.props;
+        const { collapsed, loading } = this.props;
 
         return (
             <div className={collapsed ? 'collapsed' : ''}>
                 <SideBar/>
                 <TopBar/>
                 <div className="page transition-all-3">
-                    <div className="page-content">
-                        {renderRoutes(this.props.route.routes)}
-                    </div>
+                    <Spin spinning={loading} tip="Loading...">
+                        <div className="page-content">
+                            {renderRoutes(this.props.route.routes)}
+                        </div>
+                    </Spin>
                 </div>
             </div>
         )
     }
 }
-
-const mapStateToProps = (state) => ({
-    system: state.get('system'),
-    collapsed: state.getIn(['system', 'collapsed'])
-});
-
-
-export default connect(mapStateToProps)(MainLayout);

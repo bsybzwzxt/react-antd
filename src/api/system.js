@@ -3,11 +3,13 @@ import { initApi } from 'src/framework/api/ajax';
 const api = {
     login: {
         method: 'post',
-        url: '/api/login/:a/b/:c'
+        url: '/api/login'
     },
     getAccessList: {
         method: 'get',
-        url: '/api/getAccess'
+        url: '/api/getAccess',
+        loading: true,
+        header: {},
     }
 };
 

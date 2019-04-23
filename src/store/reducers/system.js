@@ -7,16 +7,6 @@ const initialState = fromJS({
     collapsed: false,
 });
 
-// export const test = createReducer(initialState, {
-//     [LOGIN](state, action) {
-//         return state.merge({ login: action.payload });
-//     },
-//     [GET_ACCESS_LIST](state, action) {
-//         return state.merge({ accessList: action.payload });
-//     }
-// });
-
-
 export function system(state = initialState, action) {
     switch (action.type) {
         case SET_LOADING:

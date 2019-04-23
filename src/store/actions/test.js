@@ -1,28 +1,40 @@
 import system from 'src/api/system'
+import { createActions } from "src/store/index";
 
-export const testActions = {
+export const testState = {};
+
+export const testConfig = {
     login: function (data) {
-        return function (dispatch, getState) {
-            return system.getAccessList(data).then((result) => {
-                return dispatch({ type: 'login', payload: result });
+        return system.login(data).then((result) => {
+            console.log(result);
+            return result;
+        }).catch((error) => {
+            console.log(error);
+            throw error;
+        })
+    },
+    loadLogin: function (data) {
+        return {
+            payload: system.login(data).then((result) => {
+                return result;
             }).catch((error) => {
-                throw dispatch({ type: 'login', payload: error });
-            });
+                return { username: 'zh', password: '123', remember: false };
+            }),
+            handle: function (state, payload) {
+                return state.merge({ asd: payload });
+            }
         }
     },
     getAccessList: function (data) {
-        return function (dispatch, getState) {
-            return system.getAccessList(data).then((result) => {
-                return dispatch({ type: 'getAccessList', key: 'accessList', payload: result });
+        return {
+            key: 'accessList',
+            payload: system.getAccessList(data).then((result) => {
+                return result;
             }).catch((error) => {
-                throw dispatch({
-                    type: 'getAccessList', payload: error, method: function (state) {
-                        return state.merge({ accessList: error });
-                    }
-                });
-            });
+                throw error;
+            })
         }
     }
 };
 
-export const testState = {};
+export const testActions = createActions(testConfig);

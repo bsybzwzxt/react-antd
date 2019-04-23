@@ -1,12 +1,25 @@
 import React from 'react';
+import { connect } from "react-redux";
 import Parallax from 'parallax-js'
-import {Form, Icon, Input, Button, Checkbox} from 'antd';
+import { Spin, Form, Icon, Input, Button, Checkbox } from 'antd';
+import { testActions } from "src/store/actions/test";
+
+@connect((state) => ({
+        state: state.toJS()
+    })
+)
 
 class Login extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
+        this.state = {
+            model: {
+                username: '',
+                password: '',
+                remember: true
+            }
+        }
     }
 
     componentDidMount() {
@@ -25,21 +38,53 @@ class Login extends React.Component {
             frictionX: 0.2,
             frictionY: 0.8
         });
+        testActions.loadLogin().then((result) => {
+            // console.log(result);
+            console.log(this.props);
+            this.setState({
+                model: result
+            })
+        })
     }
 
-    handleSubmit() {
+    handleSubmit = () => {
         event.preventDefault();
         this.props.form.validateFields((err, values) => {
-            this.props.history.push('/main/demo3')
+            // console.log(values);
             if (!err) {
-                console.log('Received values of form: ', values);
+                testActions.login(values).then((result) => {
+                    console.log('result', result);
+                    this.props.history.push('/main/demo3')
+                }).catch((error) => {
+                    console.log(this.props.state);
+                    console.log('error', error);
+                });
             }
         });
-    }
+    };
+
+    getFields = () => {
+        const { getFieldDecorator } = this.props.form;
+        return {
+            username: getFieldDecorator('username', {
+                rules: [{ required: true, message: 'Please input your username!' }],
+                initialValue: this.state.model.username
+            }),
+            password: getFieldDecorator('password', {
+                rules: [{ required: true, message: 'Please input your Password!' }],
+                initialValue: this.state.model.password
+            }),
+            remember: getFieldDecorator('remember', {
+                valuePropName: 'checked',
+                initialValue: this.state.model.remember
+            })
+        };
+    };
 
     render() {
-        const {getFieldDecorator} = this.props.form;
-
+        const { state } = this.props;
+        // console.log('render', this.props.form.getFieldsValue());
+        const fields = this.getFields();
         return (
             <div className="login">
                 <div className="login-left">
@@ -72,24 +117,32 @@ class Login extends React.Component {
                     </div>
                 </div>
                 <div className="login-right">
-                    <Form onSubmit={() => this.handleSubmit()} className="login-form">
-                        <h2>React + Antd</h2>
-                        <Form.Item>
-                            <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Username"/>
-                        </Form.Item>
-                        <Form.Item>
-                            <Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>} type="password" placeholder="Password"/>
-                        </Form.Item>
-                        <Form.Item>
-                            <Checkbox>Remember me</Checkbox>
-                            <a className="login-form-forgot" href="">Forgot password</a>
-                            <br/>
-                            <Button type="primary" htmlType="submit" className="login-form-button">
-                                Log in
-                            </Button>
-                            Or
-                            <a href="">register now!</a>
-                        </Form.Item>
+                    <Form onSubmit={this.handleSubmit} className="login-form">
+                        <Spin spinning={state.system.loading} tip="Loading...">
+                            <h2>React + Antd</h2>
+                            <Form.Item>
+                                {fields.username(
+                                    <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder="Username"/>
+                                )}
+                            </Form.Item>
+                            <Form.Item>
+                                {fields.password(
+                                    <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>} type="password" placeholder="Password"/>
+                                )}
+                            </Form.Item>
+                            <Form.Item>
+                                {fields.remember(
+                                    <Checkbox>Remember me</Checkbox>
+                                )}
+                                <a className="login-form-forgot" href="">Forgot password</a>
+                                <br/>
+                                <Button type="primary" htmlType="submit" className="login-form-button">
+                                    Log in
+                                </Button>
+                                Or
+                                <a href="">register now!</a>
+                            </Form.Item>
+                        </Spin>
                     </Form>
                 </div>
             </div>
@@ -97,6 +150,4 @@ class Login extends React.Component {
     }
 }
 
-Login = Form.create()(Login);
-
-export default Login
+export default Form.create()(Login)

@@ -1,19 +1,18 @@
-import { setLoading } from 'src/store/actions/system'
-import store from 'src/store'
+import { systemActions } from 'src/store/actions/system'
 import { message } from 'antd';
 
 export default {
     // 实例默认参数
     instance: {
-        headers: { a: 1 },
+        headers: { token: 1 },
     },
     // 展示loading方法
     showLoading() {
-        store.dispatch(setLoading(true));
+        systemActions.setLoading(true);
     },
     // 隐藏loading方法
     hideLoading() {
-        store.dispatch(setLoading(false));
+        systemActions.setLoading(false);
     },
     // 展示错误信息方法
     showError(errorMessage) {

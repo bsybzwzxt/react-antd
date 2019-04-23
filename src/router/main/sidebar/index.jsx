@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Menu, Icon } from 'antd';
-import { systemActions } from "src/store/actions/system";
 import './index.css'
 
 const SubMenu = Menu.SubMenu;
@@ -10,7 +8,6 @@ const SubMenu = Menu.SubMenu;
 @connect((state) => ({
         collapsed: state.getIn(['system', 'collapsed'])
     }), (dispatch) => ({
-        actions: bindActionCreators(systemActions, dispatch)
     })
 )
 
