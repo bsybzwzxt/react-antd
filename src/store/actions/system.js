@@ -6,16 +6,16 @@ export const systemState = {
 };
 
 export const systemConfig = {
-    setLoading: function (data) {
-        return {
-            key: 'loading', payload: data
+    setLoading: {
+        key: 'loading',
+        payload: function (data) {
+            return data;
         }
     },
-    setCollapsed: function (data) {
-        return {
-            key: 'collapsed', payload: data
-        }
-    }
+    setCollapsed: {
+        key: 'collapsed',
+        payload: (data) => data
+    },
 };
 
 export const systemActions = createActions(systemConfig);

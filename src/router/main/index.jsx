@@ -18,33 +18,29 @@ export default class MainLayout extends React.Component {
         super(props);
     }
 
-    componentDidMount() {
-
-    }
+    componentDidMount() {}
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         // console.log(prevProps, prevState, snapshot);
     }
 
-    componentWillUnmount() {
-
-    }
+    componentWillUnmount() {}
 
     render() {
         const { collapsed, loading } = this.props;
 
         return (
-            <div className={collapsed ? 'collapsed' : ''}>
-                <SideBar/>
-                <TopBar/>
-                <div className="page transition-all-3">
-                    <Spin spinning={loading} tip="Loading...">
+            <Spin spinning={loading} tip="Loading...">
+                <div className={collapsed ? 'collapsed' : ''}>
+                    <SideBar/>
+                    <TopBar/>
+                    <div className="page transition-all-3">
                         <div className="page-content">
                             {renderRoutes(this.props.route.routes)}
                         </div>
-                    </Spin>
+                    </div>
                 </div>
-            </div>
+            </Spin>
         )
     }
 }

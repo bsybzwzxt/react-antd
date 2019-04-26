@@ -6,6 +6,7 @@ import MainLayout from 'src/router/main/';
 import Demo1 from 'src/page/demo/demo1/';
 import Demo2 from 'src/page/demo/demo2/';
 import Demo3 from 'src/page/demo/demo3/';
+import DemoForm from 'src/page/demo/demoForm/';
 import Login from 'src/page/Login';
 
 const routes = [
@@ -14,6 +15,7 @@ const routes = [
         component: MainLayout,
         routes: [
             { path: '/main/demo3', component: Demo3 },
+            { path: '/main/form', component: DemoForm },
         ]
     },
     { path: '/demo2', component: Demo2 },

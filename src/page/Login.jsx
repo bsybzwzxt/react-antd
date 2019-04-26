@@ -38,26 +38,17 @@ class Login extends React.Component {
             frictionX: 0.2,
             frictionY: 0.8
         });
-        testActions.loadLogin().then((result) => {
-            // console.log(result);
-            console.log(this.props);
-            this.setState({
-                model: result
-            })
-        })
     }
 
     handleSubmit = () => {
         event.preventDefault();
         this.props.form.validateFields((err, values) => {
-            // console.log(values);
+            console.log(values);
             if (!err) {
-                testActions.login(values).then((result) => {
-                    console.log('result', result);
+                testActions.login(values).then(() => {
                     this.props.history.push('/main/demo3')
-                }).catch((error) => {
-                    console.log(this.props.state);
-                    console.log('error', error);
+                }).catch(() => {
+                    this.props.history.push('/main/demo3')
                 });
             }
         });
@@ -68,51 +59,50 @@ class Login extends React.Component {
         return {
             username: getFieldDecorator('username', {
                 rules: [{ required: true, message: 'Please input your username!' }],
-                initialValue: this.state.model.username
+                initialValue: ''
             }),
             password: getFieldDecorator('password', {
                 rules: [{ required: true, message: 'Please input your Password!' }],
-                initialValue: this.state.model.password
+                initialValue: ''
             }),
             remember: getFieldDecorator('remember', {
                 valuePropName: 'checked',
-                initialValue: this.state.model.remember
+                initialValue: true
             })
         };
     };
 
     render() {
         const { state } = this.props;
-        // console.log('render', this.props.form.getFieldsValue());
         const fields = this.getFields();
         return (
             <div className="login">
                 <div className="login-left">
                     <div id="illus" className="illus">
                         <div className="ele_wrapper layer_1" data-depth="0.7">
-                            <div className="cyl"></div>
+                            <div className="cyl"/>
                         </div>
                         <div className="ele_wrapper layer_2" data-depth="0.6">
-                            <div className="wave"></div>
-                            <div className="cube"></div>
+                            <div className="wave"/>
+                            <div className="cube"/>
                         </div>
                         <div className="ele_wrapper layer_3" data-depth="0.55">
-                            <div className="front"></div>
+                            <div className="front"/>
                         </div>
                         <div className="ele_wrapper layer_4" data-depth="0.5">
-                            <div className="human"></div>
+                            <div className="human"/>
                         </div>
                         <div className="ele_wrapper layer_5" data-depth="0.45">
-                            <div className="dots"></div>
+                            <div className="dots"/>
                         </div>
                         <div className="ele_wrapper layer_6" data-depth="0.4">
-                            <div className="mid"></div>
+                            <div className="mid"/>
                         </div>
                         <div className="ele_wrapper layer_7" data-depth="0.3">
-                            <div className="black"></div>
+                            <div className="black"/>
                         </div>
                         <div className="ele_wrapper layer_8" data-depth="0.2">
-                            <div className="back"></div>
+                            <div className="back"/>
                         </div>
                     </div>
                 </div>

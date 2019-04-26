@@ -10,7 +10,7 @@ export default combineReducers({
 
 /**
  * 通过type自动匹配reducer
- */
+ **/
 function createReducer(initialState, handle) {
     return function reducer(state = initialState, action) {
         if (handle.hasOwnProperty(action.type)) {
@@ -22,18 +22,37 @@ function createReducer(initialState, handle) {
 }
 
 /**
- *  将config配置转化成reducer
- *  type: 匹配的函数名称
- *  payload: 数据
- *  key: 插入state的节点名称，没有则使用type，默认使用set的方式插入
- *  handle: 手动设置插入state的方式
- */
+ * 将config配置转化成reducer
+ **/
 function transConfig(config) {
     let result = {};
-    for (let key in config) {
-        result[key] = function (state, { type, payload, key, handle }) {
-            return handle ? handle(state, payload) : state.set(key || type, payload);
+    let newConfig = createLoading(config);
+    console.log(newConfig);
+    for (let key in newConfig) {
+        if (newConfig.hasOwnProperty(key)) {
+            result[key] = function (state, { type, payload, key, handle }) {
+                return handle ? handle(state, payload) : state.set(key || type, payload);
+            }
         }
     }
     return result;
+}
+
+/**
+ * 如果存在loadingkey则自动生成一条action
+ **/
+function createLoading(config) {
+    let result = {};
+    for (let key in config) {
+        if (config.hasOwnProperty(key)) {
+            let loadingKey = config[key].loadingKey;
+            if (loadingKey) {
+                result[`${key}Loading`] = {
+                    key: loadingKey,
+                    payload: (data) => data
+                }
+            }
+        }
+    }
+    return { ...config, ...result };
 }

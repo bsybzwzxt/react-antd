@@ -18,7 +18,6 @@ export default class SideBar extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         const { collapsed } = this.props;
         return (
             <div className="sidebar transition-all-3">

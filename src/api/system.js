@@ -1,4 +1,4 @@
-import { initApi } from 'src/framework/api/ajax';
+import { createApi } from 'src/framework/javascript/request';
 
 const api = {
     login: {
@@ -7,12 +7,10 @@ const api = {
     },
     getAccessList: {
         method: 'get',
-        url: '/api/getAccess',
-        loading: true,
-        header: {},
+        url: '/api/getAccessList'
     }
 };
 
-export default initApi(api)
+export default createApi(api)
 // module.exports = initApi(api);
 
