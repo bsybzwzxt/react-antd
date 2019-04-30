@@ -2,7 +2,7 @@
  * Created by zhangjuncheng on 2019/4/17.
  */
 import axios from 'axios';
-import configRequest from 'src/config/request'
+import configRequest from 'src/config/request';
 
 export default axios;
 

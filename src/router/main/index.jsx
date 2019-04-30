@@ -9,7 +9,7 @@ import { Spin } from "antd";
 @connect((state) => ({
         collapsed: state.getIn(['system', 'collapsed']),
         loading: state.getIn(['system', 'loading'])
-    })
+    }), () => ({})
 )
 
 export default class MainLayout extends React.Component {

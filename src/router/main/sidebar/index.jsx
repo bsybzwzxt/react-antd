@@ -7,8 +7,7 @@ const SubMenu = Menu.SubMenu;
 
 @connect((state) => ({
         collapsed: state.getIn(['system', 'collapsed'])
-    }), (dispatch) => ({
-    })
+    }), () => ({})
 )
 
 export default class SideBar extends React.Component {

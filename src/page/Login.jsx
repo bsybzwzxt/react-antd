@@ -6,7 +6,7 @@ import { testActions } from "src/store/actions/test";
 
 @connect((state) => ({
         state: state.toJS()
-    })
+    }), () => {}
 )
 
 class Login extends React.Component {

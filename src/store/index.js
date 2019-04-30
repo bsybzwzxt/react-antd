@@ -11,7 +11,7 @@ export default store;
  * 如果存在loadingKey则自动dispatch
  * 将action的payload替换为返回的数据
  * return返回的数据
- **/
+ */
 function promiseMiddleware({ dispatch }) {
     return (next) => (action) => {
         let { type, payload, key, handle, loadingKey, loadingHandle } = action;
@@ -47,7 +47,7 @@ function promiseMiddleware({ dispatch }) {
  * handle: 手动设置插入state的方式
  * loadingKey: 自动生成loading状态，并插入state的节点名称
  * loadingHandle: 手动设置loading插入state的方式
- **/
+ */
 export function createActions(actionsConfig) {
     let result = {};
     for (let key in actionsConfig) {
